@@ -1,0 +1,17 @@
+:root {
+     --primary-color: #000000;
+     --secondary-color: #351c75;
+     --tertiary-color: #bd60e7;
+   }
+
+/* Global Styles */
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+}
+body{
+     font-family: Helvetica, Arial, sans-serif;
+}
+
+/* End Global styles */
