@@ -1,3 +1,11 @@
+
+var instructions = document.getElementById('instructions');
+var timerEl = document.getElementById('countdown');
+var questionEl = document.getElementById('quiz-question');
+var answerEl = document.getElementById('quiz-answers');
+var startBtn = document.getElementById('start');
+var timeLeft = ""
+
 var questionObj = [
     {
         question: "Commonly used data types do NOT include:",
@@ -45,3 +53,27 @@ questionObj.forEach(element => {
     console.log(element.question);
 });
 
+// Timer function set at 60 seconds
+function timer() {
+    timeLeft = 60;
+
+    var timeInterval = setInterval(function () {
+        // While timer is running
+        if (timeLeft > 0) {
+            timerEl.textContent = 'Time: ' + timeLeft; // Display timer on page
+            startBtn.setAttribute("style", "display: none"); // Hide start button on start
+            instructions.setAttribute("style", "display: none"); // Hide instructions on start
+            timeLeft--;
+        }
+        // After timer hits zero
+        else {
+            timerEl.textContent = 'Times Up!'; // Display times up message
+            startBtn.removeAttribute("style", "display: unset"); // Show start button
+            instructions.removeAttribute("style", "display: unset"); // show instructions
+            clearInterval(timeInterval); // Reset Timer
+        }
+    }, 1000);
+
+}
+
+startBtn.onclick = timer;
