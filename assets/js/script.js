@@ -1,252 +1,237 @@
-// Question 1 Elements
-var option1A = document.getElementById('option1A')
-var option1B = document.getElementById('option1B')
-var option1C = document.getElementById('option1C')
-var option1D = document.getElementById('option1D')
+var formEl = document.querySelector("#highscore");
+var highscoreEl = document.querySelector("#highscore-panel")
+var instructionsEl = document.querySelector('#instructions');
+var timerEl = document.querySelector('#countdown');
+var questionEl = document.querySelector('#quiz-question');
+var quizEl = document.querySelector('#quiz-body');
+var statusEl = document.querySelector('#status')
+var startBtn = document.querySelector('#start');
+var timeLeft = 0;
 
-// Question 2 Elements
-var option2A = document.getElementById('option2A')
-var option2B = document.getElementById('option2B')
-var option2C = document.getElementById('option2C')
-var option2D = document.getElementById('option2D')
+quizEl.textContent = "Try to answer the following code-related questions withn the time limit. Keep in mind that incorrect answers will penalize your score / time by ten seconds!";
 
-// Question 3 Elements
-var option3A = document.getElementById('option3A')
-var option3B = document.getElementById('option3B')
-var option3C = document.getElementById('option3C')
-var option3D = document.getElementById('option3D')
-
-// Question 4 Elements
-var option4A = document.getElementById('option4A')
-var option4B = document.getElementById('option4B')
-var option4C = document.getElementById('option4C')
-var option4D = document.getElementById('option4D')
-
-// Question 5 Elements
-var option5A = document.getElementById('option5A')
-var option5B = document.getElementById('option5B')
-var option5C = document.getElementById('option5C')
-var option5D = document.getElementById('option5D')
-
-// Answer Elements
-var answerE1 = document.getElementById('quiz-answers1');
-var answerE2 = document.getElementById('quiz-answers2');
-var answerE3 = document.getElementById('quiz-answers3');
-var answerE4 = document.getElementById('quiz-answers4');
-var answerE5 = document.getElementById('quiz-answers5');
-
-// Additional Elements
-var instructions = document.getElementById('instructions');
-var timerEl = document.getElementById('countdown');
-var questionEl = document.getElementById('quiz-question');
-var startBtn = document.getElementById('start');
-
-// Global Time Varible
-var timeLeft = ""
-
-// Question Objects
 var questionObj = [
     {
         question: "Commonly used data types do NOT include:",
-        answer: "C",
-        optionA: "Strings",
-        optionB: "Booleans",
-        optionC: "Alerts",
-        optionD: "Numbers"
+        options: ["Strings", "Booleans", "Alerts", "Numbers"],
+        answer: "3"
     },
     {
         question: "Arrays in JavaScript can be used to store ______",
-        answer: "D",
-        optionA: "Other Arrays",
-        optionB: "Numbers and Strings",
-        optionC: "Booleans",
-        optionD: "All of the Above"
+        options: ["Other Arrays", "Numbers and Strings", "Booleans", "All of the Above"],
+        answer: "4"
     },
     {
         question: "The condition in an if/else statement is enclosed with _____",
-        answer: "B",
-        optionA: "Quotes",
-        optionB: "Parenthesis",
-        optionC: "Square Brackets",
-        optionD: "Curly Brackets"
+        options: ["Quotes", "Parenthesis", "Square Brackets", "Curly Brackets"],
+        answer: "2",
     },
     {
         question: "String values must be enclosed within _____ when being assigned to variables.",
-        answer: "A",
-        optionA: "Quotes",
-        optionB: "Curly Brackets",
-        optionC: "Commas",
-        optionD: "Parenthesis"
+        options: ["Quotes", "Curly Brackets", "Commas", "Parenthesis"],
+        answer: "1"
     },
     {
         question: "A useful tool used during development/debugging for printing content to the debugger is:",
-        answer: "D",
-        optionA: "JavaScript",
-        optionB: "terminal/bash",
-        optionC: "for loops",
-        optionD: "console.log"
+        options: ["JavaScript", "terminal/bash", "for loops", "console.log"],
+        answer: "4"
     },
 ]
 
-// Timer Function
-var timer = function () {
-    timeLeft = 5;
-    startBtn.setAttribute("style", "display: none"); // Hide Start Button
-    instructions.setAttribute("style", "display: none"); // Hide Instructions
-    timerEl.setAttribute("style", "display: block"); // Show Timer
-    timerEl.textContent = 'Time: 60'; // Set Timer Display
+
+// Timer function set at 60 seconds
+function timer() {
+    timeLeft = 60;
+    startBtn.setAttribute("style", "display: none"); // Hide start button on start
 
     var timeInterval = setInterval(function () {
-        if (timeLeft > -1) {
-            timerEl.textContent = 'Time: ' + timeLeft;
+        // While timer is running
+        if (timeLeft > 0) {
+            timerEl.textContent = 'Time: ' + timeLeft; // Display timer on page
             timeLeft--;
         }
+        // After timer hits zero
         else {
-            clearInterval(timeInterval);
-            endGame();
+            timerEl.textContent = 'Times Up!'; // Display times up message
+            clearInterval(timeInterval); // Reset Timer
+            highScores(timeLeft, timeInterval);
         }
     }, 1000);
-
-    createQuestion1(); // Dispaly First Question
-
-}
-// Create Questions 1 - 5 (This Code is a mess... Need to figure out how to loop this.)
-var createQuestion1 = function () {
-    answerE1.setAttribute("style", "display: block");
-    questionEl.textContent = questionObj[0].question;
-    option1A.textContent = questionObj[0].optionA;
-    option1B.textContent = questionObj[0].optionB;
-    option1C.textContent = questionObj[0].optionC;
-    option1D.textContent = questionObj[0].optionD;
-}
-var createQuestion2 = function () {
-    answerE2.setAttribute("style", "display: block");
-    questionEl.textContent = questionObj[1].question;
-    option2A.textContent = questionObj[1].optionA;
-    option2B.textContent = questionObj[1].optionB;
-    option2C.textContent = questionObj[1].optionC;
-    option2D.textContent = questionObj[1].optionD;
-}
-var createQuestion3 = function () {
-    answerE3.setAttribute("style", "display: block");
-    questionEl.textContent = questionObj[2].question;
-    option3A.textContent = questionObj[2].optionA;
-    option3B.textContent = questionObj[2].optionB;
-    option3C.textContent = questionObj[2].optionC;
-    option3D.textContent = questionObj[2].optionD;
-}
-var createQuestion4 = function () {
-    answerE4.setAttribute("style", "display: block");
-    questionEl.textContent = questionObj[3].question;
-    option4A.textContent = questionObj[3].optionA;
-    option4B.textContent = questionObj[3].optionB;
-    option4C.textContent = questionObj[3].optionC;
-    option4D.textContent = questionObj[3].optionD;
-}
-var createQuestion5 = function () {
-    answerE5.setAttribute("style", "display: block");
-    questionEl.textContent = questionObj[4].question;
-    option5A.textContent = questionObj[4].optionA;
-    option5B.textContent = questionObj[4].optionB;
-    option5C.textContent = questionObj[4].optionC;
-    option5D.textContent = questionObj[4].optionD;
+    questions();
 }
 
+var highScores = function (timeLeft) {
+    quizEl.innerHTML = "<h2>All Done!</h2><h3>Your final score is " + timeLeft + "</h3>";
+    var highscoreEl = document.querySelector('#highscore-panel');
+    highscoreEl.setAttribute("style", "display: block; margin-top: -250px");
+}
 
-// Check Answer Functions 1 - 5 (Again, code is a mess... needs a loop.)
-function checkAnswer1(answer) {
-    if (answer === questionObj[0].answer) {
-        // answer is correct
-        timeLeft += 5;
-        alert('Correct!');
-        answerE1.removeAttribute("style", "display: block");
-        createQuestion2();
-    }
-    else {
-        timeLeft -= 10;
-        alert('wrong answer!');
-        answerE1.removeAttribute("style", "display: block");
-        createQuestion2();
-    }
-}
-function checkAnswer2(answer) {
-    if (answer === questionObj[1].answer) {
-        // answer is correct
-        timeLeft += 5;
-        alert('Correct!');
-        answerE2.removeAttribute("style", "display: block");
-        createQuestion3();
-    }
-    else {
-        timeLeft -= 10;
-        alert('wrong answer!');
-        answerE2.removeAttribute("style", "display: block");
-        createQuestion3();
-    }
-}
-function checkAnswer3(answer) {
-    if (answer === questionObj[2].answer) {
-        // answer is correct
-        timeLeft += 5;
-        alert('Correct!');
-        answerE3.removeAttribute("style", "display: block");
-        createQuestion4();
-    }
-    else {
-        timeLeft -= 10;
-        alert('wrong answer!');
-        answerE3.removeAttribute("style", "display: block");
-        createQuestion4();
-    }
-}
-function checkAnswer4(answer) {
-    if (answer === questionObj[3].answer) {
-        // answer is correct
-        timeLeft += 5;
-        alert('Correct!');
-        answerE4.removeAttribute("style", "display: block");
-        createQuestion5();
-    }
-    else {
-        timeLeft -= 10;
-        alert('wrong answer!');
-        answerE4.removeAttribute("style", "display: block");
-        createQuestion5();
-    }
-}
-function checkAnswer5(answer) {
-    if (answer === questionObj[4].answer) {
-        // answer is correct
-        timeLeft += 5;
-        alert('Correct!');
-        endGame();
-    }
-    else {
-        timeLeft -= 10;
-        alert('wrong answer!');
-        endGame();
+var questions = function () {
+    quizEl.textContent = "";
+    for (let i = 0; i < questionObj.length; i++) {
+        var panelEl = document.createElement("section");
+        panelEl.className = "question-panel";
+        panelEl.setAttribute("id", "panel" + [i + 1]);
+        quizEl.appendChild(panelEl);
+
+        var questionEl = document.createElement("h3");
+        questionEl.className = "quiz-question";
+        questionEl.textContent = questionObj[i].question;
+        panelEl.appendChild(questionEl);
+
+        var answerEl = document.createElement("div");
+        answerEl.setAttribute("data-question-id", "1");
+        answerEl.setAttribute("data-answer-id", questionObj[i].answer);
+        answerEl.setAttribute("data-panel-id", "panel" + [i + 1]);
+        answerEl.className = "answer-choice";
+        answerEl.textContent = "1. " + questionObj[i].options[0];
+        panelEl.appendChild(answerEl);
+
+        var answerEl = document.createElement("div");
+        answerEl.setAttribute("data-question-id", "2");
+        answerEl.setAttribute("data-answer-id", questionObj[i].answer);
+        answerEl.setAttribute("data-panel-id", "panel" + [i + 1]);
+        answerEl.className = "answer-choice";
+        answerEl.textContent = "2. " + questionObj[i].options[1];
+        panelEl.appendChild(answerEl);
+
+        var answerEl = document.createElement("div");
+        answerEl.setAttribute("data-question-id", "3");
+        answerEl.setAttribute("data-answer-id", questionObj[i].answer);
+        answerEl.setAttribute("data-panel-id", "panel" + [i + 1]);
+        answerEl.className = "answer-choice";
+        answerEl.textContent = "3. " + questionObj[i].options[2];
+        panelEl.appendChild(answerEl);
+
+        var answerEl = document.createElement("div");
+        answerEl.setAttribute("data-question-id", "4");
+        answerEl.setAttribute("data-answer-id", questionObj[i].answer);
+        answerEl.setAttribute("data-panel-id", "panel" + [i + 1]);
+        answerEl.className = "answer-choice";
+        answerEl.textContent = "4. " + questionObj[i].options[3];
+        panelEl.appendChild(answerEl);
+
+        var statusEl = document.createElement("div");
+        statusEl.setAttribute("id", "answer-status");
+        statusEl.className = "status";
+        panelEl.appendChild(statusEl);
     }
 }
 
-// End Game function (code runs twice becasue timer doesn't stop at end of questions.)
-function endGame() {
-    timerEl.textContent = 'Times Up!';
-    startBtn.removeAttribute("style", "display: unset");
-    instructions.removeAttribute("style", "display: unset");
-    questionEl.textContent = "JavaScript Quiz Challenge";
-    timerEl.setAttribute("style", "display: none");
-    answerE1.setAttribute("style", "display: none");
-    answerE2.setAttribute("style", "display: none");
-    answerE3.setAttribute("style", "display: none");
-    answerE4.setAttribute("style", "display: none");
-    answerE5.setAttribute("style", "display: none");
-    clearTimeout(timer);
-    alert('Game Over');
+var checkAnswer = function (questionId, answerId, panelId) {
+
+    var panel1El = document.querySelector('#panel1');
+    var panel2El = document.querySelector('#panel2');
+    var panel3El = document.querySelector('#panel3');
+    var panel4El = document.querySelector('#panel4');
+    var statusEl = document.querySelector("#status");
+
+
+
+
+    switch (panelId) {
+        case 'panel1':
+            console.log("Panel 1");
+            if (questionId === answerId) {
+                statusEl.textContent = "Correct!"
+                statusEl.className = "status-correct"
+                panel1El.setAttribute("style", "display: none");
+            }
+            else {
+                timeLeft = timeLeft - 10;
+                statusEl.textContent = "Wrong!"
+                statusEl.className = "status-wrong"
+                panel1El.setAttribute("style", "display: none");
+            };
+            break;
+        case 'panel2':
+            console.log("Panel 2");
+            if (questionId === answerId) {
+                statusEl.textContent = "Excellent!"
+                statusEl.className = "status-correct"
+                panel2El.setAttribute("style", "display: none");
+            }
+            else {
+                timeLeft = timeLeft - 10;
+                statusEl.textContent = "Wrong Again!"
+                statusEl.className = "status-wrong"
+                panel2El.setAttribute("style", "display: none");
+            };
+            break;
+        case 'panel3':
+            console.log("Panel 3");
+            if (questionId === answerId) {
+                statusEl.textContent = "You Got It!"
+                statusEl.className = "status-correct"
+                panel3El.setAttribute("style", "display: none");
+            }
+            else {
+                timeLeft = timeLeft - 10;
+                statusEl.textContent = "Ouch!"
+                statusEl.className = "status-wrong"
+                panel3El.setAttribute("style", "display: none");
+            };
+            break;
+        case 'panel4':
+            console.log("Panel 4");
+            if (questionId === answerId) {
+                statusEl.textContent = "Well Done!"
+                statusEl.className = "status-correct"
+                panel4El.setAttribute("style", "display: none");
+            }
+            else {
+                timeLeft = timeLeft - 10;
+                statusEl.textContent = "Totally Wrong."
+                statusEl.className = "status-wrong"
+                panel4El.setAttribute("style", "display: none");
+            };
+            break;
+        case 'panel5':
+            console.log("Panel 5");
+            if (questionId === answerId) {
+                statusEl.textContent = "Awesome!"
+                statusEl.className = "status-correct"
+                highScores(timeLeft);
+            }
+            else {
+                timeLeft = timeLeft - 10;
+                statusEl.textContent = "Not Correct."
+                statusEl.className = "status-wrong"
+                highScores(timeLeft);
+            };
+            break;
+    }
 }
 
-startBtn.onclick = timer; // Start the game
+var taskFormHandler = function () {
+    event.preventDefault();
+    var playerInput = document.querySelector("input[name='player-initials']").value;
+    // Check if input values are empty strings
+    if (!playerInput) {
+        alert("Please enter your initals!");
+        return false;
+    }
+
+    localStorage.setItem(playerInput, timeLeft)
+    highscoreEl.textContent = "";
+    quizEl.textContent = "";
+    statusEl.textContent = "";
 
 
 
+};
 
+var answerHandler = function (event) {
+    var targetEl = event.target;
 
+    if (targetEl.matches(".answer-choice")) {
+        var questionId = targetEl.getAttribute("data-question-id");
+        var answerId = targetEl.getAttribute("data-answer-id");
+        var panelId = targetEl.getAttribute("data-panel-id");
+        checkAnswer(questionId, answerId, panelId);
+    }
+}
+
+startBtn.onclick = timer;
+quizEl.addEventListener("click", answerHandler);
+formEl.addEventListener("submit", taskFormHandler);

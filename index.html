@@ -15,6 +15,7 @@
 
     <header>
         <h1>JavaScript Quiz</h1>
+        <div class="timer" id="countdown"></div>
         <nav>
             <ul>
                 <li><a title="link">View High Scores</a></li>
@@ -22,50 +23,30 @@
         </nav>
     </header>
 
-    <section class="quiz-wrapper">
-        <h2 class="quiz-question" id="quiz-question">JavaScript Quiz Challenge</h2>
-        <h3 class="countdown" id="countdown">Timer: 60</h3>
-        <!-- Answers for Question 1 -->
-        <div class="quiz-answers" id="quiz-answers1">
-            <p id="option1A" onclick="checkAnswer1('A')"></p>
-            <p id="option1B" onclick="checkAnswer1('B')"></p>
-            <p id="option1C" onclick="checkAnswer1('C')"></p>
-            <p id="option1D" onclick="checkAnswer1('D')"></p>
+    <main class="quiz-wrapper">
+        <section class="quiz-body" id="quiz-body">
+
+        </section>
+        <div class="status" id="status">
+
         </div>
-        <!-- Answers for Question 2 -->
-        <div class="quiz-answers" id="quiz-answers2">
-            <p id="option2A" onclick="checkAnswer2('A')"></p>
-            <p id="option2B" onclick="checkAnswer2('B')"></p>
-            <p id="option2C" onclick="checkAnswer2('C')"></p>
-            <p id="option2D" onclick="checkAnswer2('D')"></p>
-        </div>
-        <!-- Answers for Question 3 -->
-        <div class="quiz-answers" id="quiz-answers3">
-            <p id="option3A" onclick="checkAnswer3('A')"></p>
-            <p id="option3B" onclick="checkAnswer3('B')"></p>
-            <p id="option3C" onclick="checkAnswer3('C')"></p>
-            <p id="option3D" onclick="checkAnswer3('D')"></p>
-        </div>
-        <!-- Answers for Question 4 -->
-        <div class="quiz-answers" id="quiz-answers4">
-            <p id="option4A" onclick="checkAnswer4('A')"></p>
-            <p id="option4B" onclick="checkAnswer4('B')"></p>
-            <p id="option4C" onclick="checkAnswer4('C')"></p>
-            <p id="option4D" onclick="checkAnswer4('D')"></p>
-        </div>
-        <!-- Answers for Question 5 -->
-        <div class="quiz-answers" id="quiz-answers5">
-            <p id="option5A" onclick="checkAnswer5('A')"></p>
-            <p id="option5B" onclick="checkAnswer5('B')"></p>
-            <p id="option5C" onclick="checkAnswer5('C')"></p>
-            <p id="option5D" onclick="checkAnswer5('D')"></p>
-        </div>
-        <div class="instructions" id="instructions">
-            Try to answer the following code-related questions withn the time limit.<br />
-            Keep in mind that incorrect answers will penalize your score/time by ten secons!
-        </div>
+
+
         <button id="start">Start</button>
-    </section>
+
+        <section class="highscore" id="highscore-panel">
+            <form id="highscore">
+                <div class="form-group">
+                    <input type="text" name="player-initials" placeholder="Enter Initials" />
+                </div>
+
+                <div class="form-group">
+                    <button class="btn" id="save-task" type="submit">Submit</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
 
     <script src="./assets/js/script.js"></script>
 
