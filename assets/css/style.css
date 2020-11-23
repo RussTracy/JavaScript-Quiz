@@ -19,8 +19,6 @@ section {
 /* End Global styles */
 
 
-
-
 /* Header Styles */
 header{
      padding: 20px 35px;
@@ -65,7 +63,6 @@ header nav ul li a:hover {
 /* End Header Styles */
 
 
-
 /* Quiz Styles */
 .quiz-wrapper{
     text-align: center;
@@ -98,6 +95,7 @@ header nav ul li a:hover {
 
 /* End Quiz Style */
 
+
 /* Answer Styles */
 .answer-choice{
     padding: 10px;
@@ -129,6 +127,7 @@ header nav ul li a:hover {
 }
 /* End Answer Styles */
 
+
 /* Panel Styles */
 #panel1{
     z-index: 50;
@@ -146,6 +145,7 @@ header nav ul li a:hover {
     z-index: 10;
 }
 /* End Panel Styles */
+
 
 /* High Score Styles */
 .highscore{
@@ -174,3 +174,24 @@ form input {
 .btn:active {
   background-color: var(--tertiary-color);
 }
+.score-header{
+     text-align: center;
+     background-color: var(--secondary-color);
+     color: #ffffff;
+     border-radius: 15px;
+     width: 300px;
+     padding: 10px;
+     margin: 0 auto;
+}
+.score-list{
+     padding: 10px;
+     text-align: center;
+     border-bottom: 2px solid black;
+     width: 300px;
+     margin: 0 auto;
+}
+.score-buttons{
+     text-align: center;
+     margin: 30px;
+}
+/* End High Score Styles */
