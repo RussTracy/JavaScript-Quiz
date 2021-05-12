@@ -1,4 +1,4 @@
-# JavaScript-Quiz (Module 4: Web API's )
+# JavaScript-Quiz
 
 This site was designed to help me understand the use of Web API's in JavaScript. During this challenge I was tasked with creating the JavaScript for a timed quiz application.
 
